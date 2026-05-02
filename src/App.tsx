@@ -52,7 +52,7 @@ const Navigation = ({ activeTab, setActiveTab }: { activeTab: string, setActiveT
   );
 };
 
-const Dashboard = ({ entries, sunRecords, streak }: { entries: JournalEntry[], sunRecords: SunRecord[], streak: number }) => {
+const Dashboard = ({ entries, sunRecords, streak, onStartJournal }: { entries: JournalEntry[], sunRecords: SunRecord[], streak: number, onStartJournal: () => void }) => {
   const [selectedEntry, setSelectedEntry] = useState<JournalEntry | null>(null);
 
   const todayDone = entries.some(
@@ -128,8 +128,19 @@ const Dashboard = ({ entries, sunRecords, streak }: { entries: JournalEntry[], s
         </div>
         <div className="space-y-3">
           {entries.length === 0 ? (
-            <div className="py-12 text-center border-2 border-dashed border-brand-olive/10 rounded-3xl text-brand-olive/40 italic">
-              아직 기록된 저널이 없습니다.
+            <div className="py-10 px-6 rounded-[2.5rem] bg-brand-sun/5 border border-brand-sun/10 text-center space-y-4">
+              <p className="text-4xl font-serif text-brand-sun/40">∿</p>
+              <div className="space-y-1">
+                <p className="text-base font-serif text-brand-ink">오늘 마음에 걸리는 생각이 있나요?</p>
+                <p className="text-xs text-brand-olive/50 leading-relaxed">불편한 감정 뒤에 숨은 진짜 욕구를<br/>5분 안에 찾아드릴게요.</p>
+              </div>
+              <button
+                onClick={onStartJournal}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-brand-sun text-white text-sm font-bold rounded-2xl hover:opacity-90 transition-opacity shadow-md shadow-brand-sun/20"
+              >
+                첫 저널 시작하기
+                <ArrowRight size={14} />
+              </button>
             </div>
           ) : (
             entries.slice().reverse().slice(0, 5).map((entry) => (
@@ -331,12 +342,12 @@ const Journal = ({ onSave }: { onSave: (entry: JournalEntry) => void }) => {
                     }
                   }}
                   className={`p-3 rounded-xl border text-[11px] text-left transition-all ${
-                    selectedPatterns.includes(p.id) 
-                      ? "bg-brand-sun text-white border-brand-sun" 
+                    selectedPatterns.includes(p.id)
+                      ? "bg-brand-sun text-white border-brand-sun"
                       : "bg-white text-brand-olive border-brand-olive/10 hover:border-brand-sun/30"
                   }`}
                 >
-                  <p className="font-bold mb-1">{p.id}</p>
+                  <p className="font-bold mb-1">{p.label}</p>
                   <p className="opacity-80 leading-snug">{p.description}</p>
                 </button>
               ))}
@@ -650,6 +661,12 @@ const AiLab = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto mb-4 space-y-4 pr-2 scrollbar-hide">
+        {messages.length === 0 && loading && (
+          <div className="flex-1 flex flex-col items-center justify-center gap-4 py-20 text-center">
+            <div className="w-10 h-10 border-4 border-brand-sun/10 border-t-brand-sun rounded-full animate-spin" />
+            <p className="text-xs text-brand-olive/40">훈련 상황을 준비하고 있어요...</p>
+          </div>
+        )}
         {messages.map((m, i) => {
           if (m.type === "feedback") {
             return (
@@ -972,7 +989,7 @@ export default function App() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            {activeTab === "dashboard" && <Dashboard entries={journalEntries} sunRecords={sunRecords} streak={streak} />}
+            {activeTab === "dashboard" && <Dashboard entries={journalEntries} sunRecords={sunRecords} streak={streak} onStartJournal={() => setActiveTab("journal")} />}
             {activeTab === "journal" && <Journal onSave={saveJournal} />}
             {activeTab === "lab" && <AiLab />}
             {activeTab === "sun" && <SunRecords records={sunRecords} onSave={saveSunRecord} />}
