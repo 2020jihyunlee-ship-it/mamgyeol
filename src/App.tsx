@@ -958,12 +958,11 @@ export default function App() {
       <header className="sticky top-0 bg-brand-cream/80 backdrop-blur-lg z-30 pt-6 pb-2 px-6 flex justify-between items-center max-w-md mx-auto">
         <button
           onClick={() => setActiveTab("dashboard")}
-          className="relative hover:scale-105 transition-transform group"
+          className="hover:scale-105 transition-transform"
         >
-          <span className="text-2xl font-black tracking-tighter bg-gradient-to-r from-brand-sun via-amber-400 to-brand-sun bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
+          <span className="text-2xl font-black tracking-tighter text-brand-sun">
             맘결
           </span>
-          <span className="absolute -inset-1 bg-brand-sun/10 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
         </button>
         <div className="flex items-center gap-2">
           {isPremium ? (
