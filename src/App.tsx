@@ -62,7 +62,7 @@ const Dashboard = ({ entries, sunRecords, streak, onStartJournal }: { entries: J
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <header className="space-y-3">
-        <h1 className="text-4xl font-light text-brand-ink leading-tight">안녕하세요, <span className="text-brand-sun font-normal">지현</span>님</h1>
+        <h1 className="text-4xl font-light text-brand-ink leading-tight">안녕하세요, <span className="text-brand-sun font-normal">회원</span>님</h1>
         <p className="text-brand-olive/70 text-lg leading-relaxed">오늘 당신의 마음이라는 하늘은 <br/>어떤 구름에 가려져 있나요?</p>
       </header>
 
@@ -958,9 +958,12 @@ export default function App() {
       <header className="sticky top-0 bg-brand-cream/80 backdrop-blur-lg z-30 pt-6 pb-2 px-6 flex justify-between items-center max-w-md mx-auto">
         <button
           onClick={() => setActiveTab("dashboard")}
-          className="text-2xl font-black text-brand-sun tracking-tighter hover:scale-105 transition-transform"
+          className="relative hover:scale-105 transition-transform group"
         >
-          K365N
+          <span className="text-2xl font-black tracking-tighter bg-gradient-to-r from-brand-sun via-amber-400 to-brand-sun bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
+            K365N
+          </span>
+          <span className="absolute -inset-1 bg-brand-sun/10 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
         </button>
         <div className="flex items-center gap-2">
           {isPremium ? (

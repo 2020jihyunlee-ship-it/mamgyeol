@@ -25,3 +25,8 @@
 .markdown-body {
   @apply font-sans leading-relaxed;
 }
+
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
