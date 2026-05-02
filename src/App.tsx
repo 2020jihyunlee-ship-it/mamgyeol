@@ -961,7 +961,7 @@ export default function App() {
           className="relative hover:scale-105 transition-transform group"
         >
           <span className="text-2xl font-black tracking-tighter bg-gradient-to-r from-brand-sun via-amber-400 to-brand-sun bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
-            todak
+            맘결
           </span>
           <span className="absolute -inset-1 bg-brand-sun/10 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
         </button>
